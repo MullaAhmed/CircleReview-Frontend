@@ -1,0 +1,11 @@
+.my_scrollbar::-webkit-scrollbar-track {
+	border-radius: 10px;
+}
+
+.my_scrollbar::-webkit-scrollbar-thumb {
+	border-radius: 10px;
+}
+
+.active_button {
+	background-color: #374151;
+}

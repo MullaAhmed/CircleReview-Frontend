@@ -1,0 +1,17 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+th, td {
+  text-align: start;
+  height: 60px;
+  padding-left: 21px;
+}
+
+thead, tr:nth-child(even) {
+  background-color: #F9FAFB;
+}
+
+table {
+  border-bottom: 1px solid #E5E7EB;
+}
