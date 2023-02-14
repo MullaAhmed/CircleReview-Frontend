@@ -1,0 +1,13 @@
+.footer_button {
+  width: 134px;
+  height: 48px;
+
+  border-radius: 8px;
+  border: 1px solid #E5E7EB;
+}
+
+.next_button {
+  background: #1F2A37;
+  color: white;
+  border: 0px;
+}
