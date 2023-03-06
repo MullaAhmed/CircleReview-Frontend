@@ -4,7 +4,7 @@ import Image from "next/image";
 import Paginate from "@/components/Tables/utils/Paginate";
 import AppContext from "@/AppContext";
 import ProgressBar from "@/components/Home/CreateSurvey/utils/ProgressBar";
-import Dropdown from "../Dropdown";
+// import Dropdown from "../Dropdown";
 
 // Define a default UI for filtering
 function DefaultColumnFilter({ column: { Header, filterValue, setFilter } }) {
@@ -260,12 +260,6 @@ function App() {
               <Image src="/arrow-icon.svg" width={16} height={16} />
             </a>
           );
-        },
-      },
-      {
-        accessor: "|",
-        Cell: ({ value }) => {
-          return <Dropdown />;
         },
       },
     ],

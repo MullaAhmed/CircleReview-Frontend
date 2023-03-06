@@ -3,19 +3,17 @@ export const initializeSurveyFormData = () => {
     survey_name: "",
     status: "",
     self_review: {
-      questions: [{ question: "", answer: "" }],
-    },
-    manager_review: {
-      questions: [{ question: "", answer: "" }],
+      questions: [{ question: ""}],
     },
     peer_review: {
-      questions: [{ question: "", answer: "" }],
+      questions: [{ question: ""}],
     },
-    hr_review: {
-      questions: [{ question: "", answer: "" }],
+    manager_review: {
+      questions: [{ question: ""}],
     },
-    external_review: {
-      questions: [{ question: "", answer: "" }],
+
+    direct_report_review: {
+      questions: [{ question: ""}],
     },
     people: [],
   };

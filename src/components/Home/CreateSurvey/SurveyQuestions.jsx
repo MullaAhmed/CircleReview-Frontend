@@ -87,13 +87,13 @@ const QuestionSet = ({ questionSetName }) => {
           </div>
           <div className='w-11/12 h-2/5 flex flex-col justify-around'>
             <p>Answer {index + 1}</p>
-            <input
+            {/* <input
               type="text"
               placeholder="Answer"
               value={question.answer}
               onChange={event => handleAnswerChange(index, event)}
               className='pl-4 bg-gray-50 border border-gray-300 rounded-md h-12'
-            />
+            /> */}
           </div>
         </div>
       ))}
@@ -135,14 +135,12 @@ let SurveyQuestions = () => {
         <Item content='Self Review' index={0} progress={progress}/>
         <Item content='Peers' index={1} progress={progress}/>
         <Item content='Manager' index={2} progress={progress}/>
-        <Item content='Direct Report' index={3} progress={progress}/>
-        <Item content='Cross Functional' index={4} progress={progress}/>
+        <Item content='Direct Report Review' index={3} progress={progress}/>
       </div>
       { progress === 0 && <QuestionSet questionSetName='self_review' />}
       { progress === 1 && <QuestionSet questionSetName='peer_review' />}
       { progress === 2 && <QuestionSet questionSetName='manager_review' />}
-      { progress === 3 && <QuestionSet questionSetName='hr_review' />}
-      { progress === 4 && <QuestionSet questionSetName='external_review' />}
+      { progress === 3 && <QuestionSet questionSetName='direct_report_review' />}
     </div>
   )
 };

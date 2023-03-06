@@ -14,7 +14,7 @@ let Footer = () => {
     var config = {
       method: 'post',
     maxBodyLength: Infinity,
-      url: 'https://cohesive-backend.onrender.com/manager/feedbackform/Cohesive/3/',
+      url: 'https://circlereview-mullaahmed-aufj.live.cohesive.so/api/feedbackform/',
       headers: { 
         'Content-Type': 'application/json'
       },

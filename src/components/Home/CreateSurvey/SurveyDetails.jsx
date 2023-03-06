@@ -41,7 +41,7 @@ let SurveyDetails = () => {
         }
       />
 
-      <Input
+      {/* <Input
         label="Enter Team"
         placeholder="Enter Team Name"
         value={surveyFormData.team || ""}
@@ -50,7 +50,7 @@ let SurveyDetails = () => {
             return { ...prev, team: e.target.value };
           })
         }
-      />
+      /> */}
     </div>
   );
 };

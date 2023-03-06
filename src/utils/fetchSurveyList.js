@@ -4,7 +4,7 @@ export default async function fetchSurveyList(company) {
   var config = {
     method: "get",
     maxBodyLength: Infinity,
-    url: process.env.NEXT_PUBLIC_BACKEND_URL + "/manager/feedbackform/",
+    url: process.env.NEXT_PUBLIC_BACKEND_URL + "/api/feedbackform/",
   };
 
   let Axios = getAxios();
