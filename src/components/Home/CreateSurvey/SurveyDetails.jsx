@@ -30,16 +30,7 @@ let SurveyDetails = () => {
 
   return (
     <div className="flex flex-col pl-12 mt-6 w-full gap-4">
-      <Input
-        label="Name your Survey"
-        placeholder="Enter Survey Name"
-        value={surveyFormData.survey_name || ""}
-        onChange={(e) =>
-          setSurveyFormData((prev) => {
-            return { ...prev, survey_name: e.target.value };
-          })
-        }
-      />
+
 
       {/* <Input
         label="Enter Team"

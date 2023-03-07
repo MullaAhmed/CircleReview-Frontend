@@ -14,9 +14,8 @@ export const AppProvider = ({ children }) => {
 	const [employeeFormData, setEmployeeFormData] = useState(initializeEmployeeFormData());
 	const [surveyFormData, setSurveyFormData] = useState(initializeSurveyFormData());
 
-	console.log(JSON.stringify(surveyFormData));
+	// console.log(JSON.stringify(surveyFormData));
 	useEffect(() => {
-		console.log(employeeFormData, surveyFormData);
 	}, [employeeFormData, surveyFormData]);
 
 	let increementProgress = () => {

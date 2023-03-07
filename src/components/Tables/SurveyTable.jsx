@@ -216,7 +216,7 @@ function App() {
       {
         Header: "PARTICIPANTS",
         accessor: "people",
-        Cell: ({ value }) => <span>{4 * value.length}</span>,
+        Cell: ({ value }) => <span>{value.length}</span>,
       },
       {
         Header: "STATUS",

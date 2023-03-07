@@ -25,8 +25,8 @@ let CreateNewSurvey = () => {
         <p className="text-3xl font-bold mt-10 ml-10">Create New Survey</p>
         <Timeline w-full />
         <div className="h-2/3">
-          {progress <= 4 && <SurveyQuestions />}
-          {progress == 5 && (
+          {progress <= 3 && <SurveyQuestions />}
+          {progress == 4 && (
             <>
               <SelectEmployees />
               {employeeMode === "add_manually" && <AddEmployeeManually />}

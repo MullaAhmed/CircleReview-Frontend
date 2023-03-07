@@ -15,9 +15,9 @@ const Timeline = () => {
 
   return (
     <div className='flex flex-row pl-12 pr-12 mt-6 w-full'>
-      <TimeLineItem content="Survey Questions" selectedImgName="selected-survey-questions-icon.svg" unselectedImgName="survey-questions-icon.svg" isActive={checkIsActive(0, 4)}/> 
-      <TimeLineItem content="Select Employees" selectedImgName="selected-employee-details-icon.svg" unselectedImgName="employee-details-icon.svg" isActive={checkIsActive(5)}/> 
-      <TimeLineItem content="Survey Details" selectedImgName="selected-survey-details-icon.svg" unselectedImgName="survey-details-icon.svg" isLast={true} isActive={checkIsActive(6)}/> 
+      <TimeLineItem content="Survey Questions" selectedImgName="selected-survey-questions-icon.svg" unselectedImgName="survey-questions-icon.svg" isActive={checkIsActive(0, 3)}/> 
+      <TimeLineItem content="Select Employees" selectedImgName="selected-employee-details-icon.svg" unselectedImgName="employee-details-icon.svg" isActive={checkIsActive(4)}/> 
+      {/* <TimeLineItem content="Survey Details" selectedImgName="selected-survey-details-icon.svg" unselectedImgName="survey-details-icon.svg" isLast={true} isActive={checkIsActive(6)}/>  */}
     </div>
   );
 };

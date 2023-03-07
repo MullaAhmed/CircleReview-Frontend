@@ -1,24 +1,28 @@
 import styles from '@/styles/Footer.module.css';
 import AppContext from '@/AppContext';
-import { useContext } from 'react';
-
+import { useContext, useEffect } from 'react';
 import axios from 'axios'
+import {AddEmployeeByCSV} from "../../../../../src/components/EmployeeDatabase/AddEmployeeByCSV"
+import App from '@/components/Tables/SurveyTable';
 
 let Footer = () => {
   const { surveyFormData, setSurveyMode, progress, increementProgress, decreementProgress } = useContext(AppContext);
 
   let handleSubmit = () => {
     setSurveyMode('view');
-    console.log(surveyFormData);
+    
+    // <AddEmployeeByCSV />
+    console.log({...surveyFormData, company_name: "Cohesive_1", status: "Active"});
 
     var config = {
       method: 'post',
     maxBodyLength: Infinity,
       url: 'https://circlereview-mullaahmed-aufj.live.cohesive.so/api/feedbackform/',
       headers: { 
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer devraj',
       },
-      data : JSON.stringify({...surveyFormData, company_name: "Cohesive", status: "active", people: [1, 2]})
+      data : JSON.stringify({...surveyFormData, company_name: "Cohesive", status: "Active"})
     };
 
     axios(config)
@@ -45,7 +49,7 @@ let Footer = () => {
       }
 
       {
-        progress >= 1 && progress <= 5 && 
+        progress >= 1 && progress <= 3 && 
           (
             <div className="flex justify-between w-1/6 mr-8">
               <button className={styles.footer_button} onClick={decreementProgress}>Prev</button>
@@ -55,7 +59,7 @@ let Footer = () => {
       }
 
       {
-        progress == 6 && 
+        progress == 4 && 
           (
             <div className="flex justify-between w-1/6 mr-8">
               <button className={styles.footer_button} onClick={decreementProgress}>Prev</button>
