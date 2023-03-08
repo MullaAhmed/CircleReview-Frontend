@@ -201,7 +201,7 @@ function App() {
             },
             {
               Header: 'MANAGER',
-              accessor: 'related_people.manager[0]',
+              accessor: 'manager',
               Filter: SelectColumnFilter,
               Cell: ({ value }) => <div className='pl-4'>{value}</div>,
             },

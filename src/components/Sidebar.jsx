@@ -22,7 +22,7 @@ const Button = ({ buttonRoute, text, icon }) => {
 
 const Sidebar = () => {
 	return (
-		<div className="flex flex-col bg-dark w-72 h-screen">
+		<div className="flex  top-0 left-0 bottom-0 flex-col bg-dark w-72 h-[100%]">
 			<div className="flex flex-none justify-center h-28 border-b border-border-color">
 				<Image src="/circle-review-icon.svg" width={190} height={22.17} />
 			</div>

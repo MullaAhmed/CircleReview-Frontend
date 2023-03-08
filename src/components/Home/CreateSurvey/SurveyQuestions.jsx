@@ -117,20 +117,25 @@ const QuestionSet = ({ questionSetName }) => {
 
 let Item = ({content, index, progress, isEmpty}) => {
   let textColor = 'text-gray-400';
+  let bgColor = 'bg-gray-400'
   let image = '/gray-arrow-icon.svg';
   if (index === progress) {
     textColor = 'text-yellow-400';
+    bgColor = 'bg-yellow-400'
     image = '/yellow-arrow-icon.svg';
   } else if (index < progress && isEmpty=="") {
     textColor = 'text-red-500';
+    bgColor = 'bg-red-500'
     image = '/red-arrow-icon.svg';
   } else if (index < progress){
     textColor="text-green-500";
+    bgColor = 'bg-green-500'
     image = '/green-arrow-icon.svg';
   }
 
   return (
     <div className={`flex items-center gap-3 pl-2 h-10 ${index != 0 ? "border-t": ""}`}>
+      <div className={`h-2 w-2 rounded-full ${bgColor}`} />
       <div
         className={textColor} 
       >{content}</div>

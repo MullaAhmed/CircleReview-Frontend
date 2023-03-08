@@ -38,15 +38,18 @@ let AddEmployeeManually = () => {
   const { employeeFormData, setEmployeeFormData, setEmployeeMode } =
     useContext(AppContext);
 
+    console.log(employeeFormData)
+
   let handleSubmit = () => {
     setEmployeeMode("view");
 
     var config = {
       method: "post",
       maxBodyLength: Infinity,
-      url: "https://cohesive-backend.onrender.com/employee/userprofile/Cohesive/0/",
+      url: "https://circlereview-mullaahmed-aufj.live.cohesive.so/api/userprofile/me/",
       headers: {
-        "Content-Type": "text/plain",
+        'Authorization': 'Bearer devraj', 
+        'Content-Type': 'application/json'
       },
       data: JSON.stringify(employeeFormData),
     };
@@ -79,19 +82,19 @@ let AddEmployeeManually = () => {
           <p>Gender</p>
           <div className="flex items-center gap-6">
             <div className="flex items-center">
-              <input type="radio" name="gender" id="male" value={"Male"} />
+              <input onSelectCapture={() => setEmployeeFormData({...employeeFormData, gender: "male"})} type="radio" name="gender" id="male" value={"Male"} />
               <label htmlFor="male" className="font-semibold text-sm p-1">
                 Male
               </label>
             </div>
             <div className="flex items-center">
-              <input type="radio" name="gender" id="female" value={"Female"} />
+              <input onSelect={(e) => setEmployeeFormData({...employeeFormData, gender: "female"}) } type="radio" name="gender" id="female" value={"Female"} />
               <label htmlFor="female" className="font-semibold text-sm p-1">
                 Female
               </label>
             </div>
             <div className="flex items-center">
-              <input type="radio" name="gender" value={"Others"} id="others" />
+              <input onSelect={(e) => setEmployeeFormData({...employeeFormData, gender: "others"}) } type="radio" name="gender" value={"Others"} id="others" />
               <label htmlFor="others" className="font-semibold text-sm p-1">
                 Others
               </label>
@@ -105,11 +108,15 @@ let AddEmployeeManually = () => {
           <h1 className="mb-5">Personal Details</h1>
 
           <div className="flex items-center gap-5">
-            <Input2 label="Role" placeholder="Admin" onChange={""} />
+            <Input2 label="Role" placeholder="Admin"           onChange={(e) =>
+            setEmployeeFormData({ ...employeeFormData, cohesive_role: e.target.value })
+          } />
             <Input2
               label="Date of Birth"
               placeholder="MM/DD/YYYY"
-              onChange={""}
+              onChange={(e) =>
+                setEmployeeFormData({ ...employeeFormData, dob: e.target.value })
+              }
             />
           </div>
           <div className="flex items-center gap-5">
@@ -126,16 +133,22 @@ let AddEmployeeManually = () => {
             <Input2
               label="Phone Number"
               placeholder="10 digit phone number"
-              onChange={""}
+              onChange={(e) =>
+                setEmployeeFormData({ ...employeeFormData, phone_number: e.target.value })
+              }
             />
           </div>
           <div className="flex items-center gap-5">
             <Input2
               label="Employee ID"
               placeholder="eg: AB34C56"
-              onChange={""}
+              onChange={(e) =>
+                setEmployeeFormData({ ...employeeFormData, employee_id: e.target.value })
+              }
             />
-            <Input2 label="Miscellaneous" placeholder="Misc" onChange={""} />
+            <Input2 label="Company Name" placeholder="Company Name"           onChange={(e) =>
+            setEmployeeFormData({ ...employeeFormData, company_name: e.target.value })
+          } />
           </div>
         </section>
         <hr />
@@ -154,25 +167,63 @@ let AddEmployeeManually = () => {
             />
             <Input2
               label="Reporting Manager"
-              placeholder="Manager Name"
-              onChange={""}
+              placeholder="Manager ID"
+              onChange={(e) =>
+                setEmployeeFormData({ ...employeeFormData, manager: e.target.value })
+              }
             />
           </div>
           <div className="flex items-center gap-5">
             <Input2
-              label="Designation"
-              placeholder="Employee Designation"
-              onChange={""}
+              label="Position"
+              placeholder="Employee Position"
+              onChange={(e) =>
+                setEmployeeFormData({ ...employeeFormData, position: e.target.value })
+              }
             />
             <Input2
               label="Date of Joining"
               placeholder="MM/DD/YYYY"
-              onChange={""}
+              onChange={(e) =>
+                setEmployeeFormData({ ...employeeFormData, doj: e.target.value })
+              }
+            />
+          </div>
+          <div className="flex items-center gap-5">
+            <Input2
+              label="User Name"
+              placeholder="User Name"
+              onChange={(e) =>
+                setEmployeeFormData({ ...employeeFormData, cohesive_user_name: e.target.value })
+              }
+            />
+            <Input2
+              label="User ID"
+              placeholder="User ID"
+              onChange={(e) =>
+                setEmployeeFormData({ ...employeeFormData, cohesive_user_id: e.target.value })
+              }
+            />
+          </div>
+          <div className="flex items-center gap-5">
+            <Input2
+              label="Workspace Name"
+              placeholder="Workspace Name"
+              onChange={(e) =>
+                setEmployeeFormData({ ...employeeFormData, cohesive_workspace_name: e.target.value })
+              }
+            />
+            <Input2
+              label="Workspace ID"
+              placeholder="Workspace ID"
+              onChange={(e) =>
+                setEmployeeFormData({ ...employeeFormData, cohesive_workspace_id: e.target.value })
+              }
             />
           </div>
         </section>
         <hr />
-        <section>
+        {/* <section>
           <h1 className="mb-5">Peer Details</h1>
           <div className="flex items-center gap-5">
             <Input2 label="Peers" placeholder="Peer Name" onChange={""} />
@@ -189,7 +240,7 @@ let AddEmployeeManually = () => {
               onChange={""}
             />
           </div>
-        </section>
+        </section> */}
 
         {/* <Input
           label="Work Email"

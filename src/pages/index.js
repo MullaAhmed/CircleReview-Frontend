@@ -8,8 +8,8 @@ import AppContext from "@/AppContext";
 import fetchSurveyList from "@/utils/fetchSurveyList";
 import fetchEmployeeList from "@/utils/fetchEmployeeList";
 import { getUserData } from "public/scripts/sdk-client";
+import Head from "next/head";
 // import fetchEmployeeDetails from '@/utils/fetchEmployeeDetails';
-
 // Fetching data from the JSON file
 async function getAllDetails() {
   let employeeDetails = await getUserData();
@@ -43,6 +43,9 @@ export default function Intermediary() {
 }
 
 function Home() {
+  <Head>
+    <title>Circle Review</title>
+  </Head>;
   const { surveyMode } = useContext(AppContext);
   return (
     <div className="flex flex-row w-screen overflow-x-hidden">
