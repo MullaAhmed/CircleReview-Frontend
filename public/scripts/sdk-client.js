@@ -12,6 +12,7 @@ function uuidv4() {
 
 let isProd =
   process.env.NEXT_PUBLIC_COHESIVE_SDK_ENVIRONMENT === "prod" ||
+  process.env.NEXT_PUBLIC_COHESIVE_SDK_ENVIRONMENT === undefined || 
   process.env.NEXT_PUBLIC_COHESIVE_SDK_ENVIRONMENT === "";
 
 //client to wire web calling function
