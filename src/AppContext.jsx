@@ -13,6 +13,7 @@ export const AppProvider = ({ children }) => {
 	const [employeeData, setEmployeeData] = useState([]);
 	const [employeeFormData, setEmployeeFormData] = useState(initializeEmployeeFormData());
 	const [surveyFormData, setSurveyFormData] = useState(initializeSurveyFormData());
+	const [reload, setReload] = useState(false)
 
 	// console.log(JSON.stringify(surveyFormData));
 	useEffect(() => {
@@ -44,6 +45,8 @@ export const AppProvider = ({ children }) => {
 		setSurveyData,
 		employeeData,
 		setEmployeeData,
+		reload,
+		setReload
 	}
 
 	return (

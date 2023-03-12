@@ -46,9 +46,9 @@ let AddEmployeeManually = () => {
     var config = {
       method: "post",
       maxBodyLength: Infinity,
-      url: "https://circlereview-mullaahmed-aufj.live.cohesive.so/api/userprofile/me/",
+      url: `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/userprofile/me/`,
       headers: {
-        'Authorization': 'Bearer devraj', 
+        'Authorization': `Bearer ${localStorage.getItem('token')}`, 
         'Content-Type': 'application/json'
       },
       data: JSON.stringify(employeeFormData),
@@ -56,7 +56,7 @@ let AddEmployeeManually = () => {
 
     axios(config)
       .then(function (response) {
-        console.log(JSON.stringify(response.data));
+        // console.log(JSON.stringify(response.data));
       })
       .catch(function (error) {
         console.log(error);

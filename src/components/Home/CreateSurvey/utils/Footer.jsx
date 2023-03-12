@@ -1,33 +1,38 @@
 import styles from '@/styles/Footer.module.css';
 import AppContext from '@/AppContext';
-import { useContext, useEffect } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import axios from 'axios'
 import {AddEmployeeByCSV} from "../../../../../src/components/EmployeeDatabase/AddEmployeeByCSV"
 import App from '@/components/Tables/SurveyTable';
 
 let Footer = () => {
-  const { surveyFormData, setSurveyMode, progress, increementProgress, decreementProgress } = useContext(AppContext);
+  const { surveyFormData, setSurveyMode, progress, increementProgress, decreementProgress, setReload } = useContext(AppContext);
+  
 
   let handleSubmit = () => {
     setSurveyMode('view');
+    console.log(localStorage.getItem('token'))
     
     // <AddEmployeeByCSV />
-    console.log({...surveyFormData, company_name: "Cohesive_1", status: "Active"});
+    // console.log({...surveyFormData, company_name: "Cohesive_1", status: "Active"});
+
+    
 
     var config = {
       method: 'post',
-    maxBodyLength: Infinity,
-      url: 'https://circlereview-mullaahmed-aufj.live.cohesive.so/api/feedbackform/',
+      maxBodyLength: Infinity,
+      url: `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/feedbackform/`,
       headers: { 
         'Content-Type': 'application/json',
-        'Authorization': 'Bearer devraj',
+        'Authorization': `Bearer ${localStorage.getItem('token')}`,
       },
       data : JSON.stringify({...surveyFormData, company_name: "Cohesive", status: "Active"})
     };
 
     axios(config)
     .then(function (response) {
-      console.log(JSON.stringify(response.data));
+      // console.log(JSON.stringify(response.data));
+      setReload(true)
     })
     .catch(function (error) {
       console.log(error);

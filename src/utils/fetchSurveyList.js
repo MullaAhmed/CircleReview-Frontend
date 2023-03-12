@@ -11,6 +11,7 @@ export default async function fetchSurveyList(company) {
 
   return Axios(config)
     .then(function (response) {
+      console.log(response.data)
       return response.data;
     })
     .catch(function (error) {

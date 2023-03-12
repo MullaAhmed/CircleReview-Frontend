@@ -118,6 +118,7 @@ export const getAxios = () => {
 export const getUserData = async () => {
   if (isProd) {
     const { JWTToken } = await getToken();
+    // return JSON.parse(Buffer.from(JWTToken.split(".")[1], "base64").toString());
     return JSON.parse(Buffer.from(JWTToken.split(".")[1], "base64").toString());
   } else {
     return {
