@@ -10,58 +10,74 @@ import fetchSurveyList from "@/utils/fetchSurveyList";
 import fetchEmployeeList from "@/utils/fetchEmployeeList";
 import { getToken, getUserData } from "public/scripts/sdk-client";
 import Head from "next/head";
+import fetchFeedbackList from "@/utils/fetchFeedbackList";
 // import fetchEmployeeDetails from '@/utils/fetchEmployeeDetails';
 // Fetching data from the JSON file
 
 let survey;
 
-const getData = async() => {
-  const data = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/feedback/all/2/`,{
-    headers:{
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${localStorage.getItem('token')}`
-    }
-  })
-  // console.log(data.data[0].form_id)
-  if(data.data[0]){
-    const response = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/feedbackform/${data.data[0].form_id}/`,{
-      headers:{
+const getData = async () => {
+  const data = await axios.get(
+    `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/feedback/all/2/`,
+    {
+      headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${localStorage.getItem('token')}`
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    }
+  );
+  // console.log(data.data[0].form_id)
+  if (data.data[0]) {
+    const response = await axios.get(
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/feedbackform/${data.data[0].form_id}/`,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
       }
-    })
-    console.log(response.data)
-    survey = response.data
+    );
+    console.log(response.data);
+    survey = response.data;
   }
-}
+};
 
 async function getAllDetails() {
-  let token = await getToken()
+  let token = await getToken();
   // console.log(token.JWTToken)
-  localStorage.setItem('token', token.JWTToken)
+  localStorage.setItem("token", token.JWTToken);
   let employeeDetails = await getUserData();
   // console.log(employeeDetails);
-  if(employeeDetails.role == "HR"){
+  if (employeeDetails.role == "HR") {
     return {
       surveyData: await fetchSurveyList("Cohesive"),
       employeeData: await fetchEmployeeList("Cohesive"),
     };
-  }else{
-    console.log('manager')
-    getData()
-    return{
-      surveyData: survey,
-      employeeData: await fetchEmployeeList("Cohesive"), 
-    }
+  } else {
+    console.log("manager");
+    getData();
+    return {
+      surveyData: await fetchFeedbackList(2),
+      employeeData: await fetchEmployeeList(
+        employeeDetails.workspace_name + "_" + employeeDetails.workspace_id
+      ),
+    };
   }
 }
 
 export default function Intermediary() {
-  const { employeeData, setEmployeeData, surveyData, setSurveyData, reload, setReload } =
-    useContext(AppContext);
+  const {
+    employeeData,
+    setEmployeeData,
+    surveyData,
+    setSurveyData,
+    reload,
+    setReload,
+  } = useContext(AppContext);
 
   useEffect(() => {
     console.log("hey there");
+    console.log("Survey Data" + surveyData);
     getAllDetails()
       .then((data) => {
         // console.log(data.surveyData)
@@ -74,7 +90,7 @@ export default function Intermediary() {
       });
   }, [reload]);
 
-  setReload(false)
+  // setReload(false);
   // console.log(reload)
 
   if (surveyData && employeeData) {
