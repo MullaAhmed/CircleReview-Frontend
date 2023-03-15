@@ -4,7 +4,7 @@ export default async function fetchFeedbackList(id) {
   var config = {
     method: "get",
     maxBodyLength: Infinity,
-    url: process.env.NEXT_PUBLIC_BACKEND_URL + `api/feedback/all/${id}/`,
+    url: process.env.NEXT_PUBLIC_BACKEND_URL + `/api/feedbackform/2/`,
   };
 
   let Axios = getAxios();

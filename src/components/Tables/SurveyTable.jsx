@@ -113,6 +113,7 @@ function Table({ columns, data }) {
   );
 
   let SurveyName = headerGroups[0].headers[0];
+  // console.log(SurveyName)
   let Status = headerGroups[0].headers[3];
 
   useEffect(() => {

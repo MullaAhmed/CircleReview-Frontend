@@ -1,4 +1,4 @@
-import { useEffect, useContext } from "react";
+import { useEffect, useContext, useState } from "react";
 import axios from "axios";
 
 import Sidebar from "@/components/Sidebar";
@@ -11,43 +11,17 @@ import fetchEmployeeList from "@/utils/fetchEmployeeList";
 import { getToken, getUserData } from "public/scripts/sdk-client";
 import Head from "next/head";
 import fetchFeedbackList from "@/utils/fetchFeedbackList";
+import { fetchSurvey } from "@/utils/fetchSurvey";
 // import fetchEmployeeDetails from '@/utils/fetchEmployeeDetails';
 // Fetching data from the JSON file
 
-let survey;
-
-const getData = async () => {
-  const data = await axios.get(
-    `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/feedback/all/2/`,
-    {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
-      },
-    }
-  );
-  // console.log(data.data[0].form_id)
-  if (data.data[0]) {
-    const response = await axios.get(
-      `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/feedbackform/${data.data[0].form_id}/`,
-      {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      }
-    );
-    console.log(response.data);
-    survey = response.data;
-  }
-};
 
 async function getAllDetails() {
   let token = await getToken();
-  // console.log(token.JWTToken)
+  console.log(token.JWTToken)
   localStorage.setItem("token", token.JWTToken);
   let employeeDetails = await getUserData();
-  // console.log(employeeDetails);
+  console.log(employeeDetails);
   if (employeeDetails.role == "HR") {
     return {
       surveyData: await fetchSurveyList("Cohesive"),
@@ -55,9 +29,11 @@ async function getAllDetails() {
     };
   } else {
     console.log("manager");
-    getData();
+    // getData();
+    console.log(await fetchSurvey())
     return {
-      surveyData: await fetchFeedbackList(2),
+      // surveyData: await fetchFeedbackList(2),
+      surveyData: await fetchSurvey(),
       employeeData: await fetchEmployeeList(
         employeeDetails.workspace_name + "_" + employeeDetails.workspace_id
       ),
