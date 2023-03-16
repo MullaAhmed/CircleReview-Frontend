@@ -4,6 +4,7 @@ import Image from "next/image";
 import Paginate from "@/components/Tables/utils/Paginate";
 import AppContext from "@/AppContext";
 import ProgressBar from "@/components/Home/CreateSurvey/utils/ProgressBar";
+import Link from "next/link";
 // import Dropdown from "../Dropdown";
 
 // Define a default UI for filtering
@@ -178,8 +179,134 @@ function Table({ columns, data }) {
   );
 }
 
+
+// Employee Table
+function Table2({ columns, data }) {
+  const filterTypes = useMemo(
+    () => ({
+      // Override the default text filter to use
+      // "startWith"
+      text: (rows, id, filterValue) => {
+        return rows.filter((row) => {
+          const rowValue = row.values[id];
+          return rowValue !== undefined
+            ? String(rowValue)
+                .toLowerCase()
+                .startsWith(String(filterValue).toLowerCase())
+            : true;
+        });
+      },
+    }),
+    []
+  );
+
+  const defaultColumn = useMemo(
+    () => ({
+      // Let's set up our default Filter UI
+      Filter: DefaultColumnFilter,
+    }),
+    []
+  );
+
+  const {
+    getTableProps,
+    getTableBodyProps,
+    headerGroups,
+    prepareRow,
+    page, // Instead of using 'rows', we'll use page,
+    // which has only the rows for the active page
+
+    // The rest of these things are super handy, too ;)
+    canPreviousPage,
+    canNextPage,
+    pageOptions,
+    pageCount,
+    gotoPage,
+    nextPage,
+    previousPage,
+    state: { pageIndex, pageSize },
+    setPageSize,
+    filteredRows,
+  } = useTable(
+    {
+      columns,
+      data,
+      defaultColumn, // Be sure to pass the defaultColumn option
+      filterTypes,
+    },
+    useFilters, // useFilters!
+    usePagination
+  );
+
+  let SurveyName = headerGroups[0].headers[0];
+  // console.log(SurveyName)
+  let Status = headerGroups[0].headers[3];
+
+  useEffect(() => {
+    setPageSize(5);
+  }, []);
+
+  return (
+    <Paginate
+      canPreviousPage={canPreviousPage}
+      canNextPage={canNextPage}
+      pageOptions={pageOptions}
+      pageCount={pageCount}
+      gotoPage={gotoPage}
+      nextPage={nextPage}
+      previousPage={previousPage}
+      pageIndex={pageIndex}
+      pageSize={pageSize}
+      filteredRows={filteredRows}
+    >
+      <div className="w-full flex flex-col">
+        <div className="flex h-12 my-4 items-center">
+          <div className="ml-4 border border-gray-300 h-10 flex rounded-md">
+            <Image
+              className="ml-4 mr-2"
+              src="/search-icon.svg"
+              width={13.5}
+              height={13.5}
+            />
+            {SurveyName.canFilter ? SurveyName.render("Filter") : null}
+          </div>
+        </div>
+        <table {...getTableProps()}>
+          <thead>
+            {headerGroups.map((headerGroup) => (
+              <tr {...headerGroup.getHeaderGroupProps()}>
+                {headerGroup.headers.map((column) => (
+                  <th {...column.getHeaderProps()}>
+                    {column.render("Header")}
+                  </th>
+                ))}
+              </tr>
+            ))}
+          </thead>
+          <tbody {...getTableBodyProps()}>
+            {page.map((row) => {
+              prepareRow(row);
+              return (
+                <tr {...row.getRowProps()}>
+                  {row.cells.map((cell) => {
+                    return (
+                      <td {...cell.getCellProps()}>{cell.render("Cell")}</td>
+                    );
+                  })}
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </div>
+    </Paginate>
+  );
+}
+
+
+
 function App() {
-  const { surveyData } = useContext(AppContext);
+  const { surveyData, employeeData } = useContext(AppContext);
 
   const columns = useMemo(
     () => [
@@ -267,7 +394,101 @@ function App() {
     []
   );
 
-  return <Table columns={columns} data={surveyData} />;
+  const columns2 = useMemo(
+    () => [
+      {
+        Header: "SURVEY NAME",
+        accessor: "form_name",
+      },
+      // {
+      //   Header: "COMPLETION RATE",
+      //   accessor: "completion_rate",
+      //   Cell: (props) => {
+      //     let status = props.row.original.status;
+      //     let value = props.value;
+
+      //     let color = "";
+
+      //     if (status === "Completed") {
+      //       color = "#31C48D";
+      //     } else if (status === "Active") {
+      //       color = "#AC94FA";
+      //     } else if (status === "Paused") {
+      //       color = "#EF5350";
+      //     } else if (status === "Draft") {
+      //       color = "#76A9FA";
+      //     }
+
+      //     return (
+      //       <div className="flex flex-col h-2/3 justify-around items-start">
+      //         <span className="text-gray-500">{value}%</span>
+      //         <ProgressBar barColor={color} progress={value} constant={1} />
+      //       </div>
+      //     );
+      //   },
+      // },
+      // {
+      //   Header: "PARTICIPANTS",
+      //   accessor: "people",
+      //   Cell: ({ value }) => <span>{value.length}</span>,
+      // },
+      {
+        Header: "STATUS",
+        accessor: "status",
+        Filter: SelectColumnFilter,
+        filter: "includes",
+        Cell: ({ value }) => {
+          let statusColor = "";
+          if (value === "Completed") {
+            statusColor = "bg-green-100 text-green-800";
+          } else if (value === "Active") {
+            statusColor = "bg-purple-100 text-purple-800";
+          } else if (value === "Pending") {
+            statusColor = "bg-red-100 text-red-800";
+          } else if (value === "Draft") {
+            statusColor = "bg-blue-100 text-blue-800";
+          }
+
+          return (
+            <span
+              className={
+                "border-0 rounded-lg px-4 py-2 font-medium " + statusColor
+              }
+            >
+              {value}
+            </span>
+          );
+        },
+      },
+      {
+        Header: "REPORT",
+        accessor: "id",
+        Cell: ({ value }) => {
+          return (
+            <Link
+              href={`/feed/${value}`}
+              className="border-2 border-gray-800 rounded-lg px-4 py-2 font-medium flex w-40 justify-between"
+            >
+              View Report
+              <Image src="/arrow-icon.svg" width={16} height={16} />
+            </Link>
+          );
+        },
+      },
+    ],
+    []
+  );
+
+  return(
+
+    <div>
+      {employeeData.role === "HR" ? (
+        <Table columns={columns} data={surveyData} />
+      ) : (
+        <Table2 columns={columns2} data={surveyData} />
+      )}
+    </div>
+  )
 }
 
 export default App;
