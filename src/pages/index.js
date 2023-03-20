@@ -22,6 +22,7 @@ async function getAllDetails() {
   localStorage.setItem("token", token.JWTToken);
   let employeeDetails = await getUserData();
   console.log(employeeDetails);
+  localStorage.setItem("role", employeeDetails.role)
   if (employeeDetails.role == "HR") {
     return {
       surveyData: await fetchSurveyList("Cohesive"),
@@ -84,6 +85,7 @@ function Home() {
     <div className="flex flex-row w-screen overflow-x-hidden">
       <Sidebar />
       {surveyMode === "view" ? <SurveyList /> : <CreateNewSurvey />}
+      {/* <SurveyList /> */}
     </div>
   );
 }

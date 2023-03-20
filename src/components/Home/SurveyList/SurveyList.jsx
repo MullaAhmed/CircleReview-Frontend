@@ -2,6 +2,7 @@ import { useContext } from 'react';
 import Image from 'next/image';
 import SurveyTable from '@/components/Tables/SurveyTable';
 import AppContext from '@/AppContext';
+import CreateSurvey from './CreateSurvey';
 
 let SurveyListEmptyComponent = () => {
   const { setSurveyMode } = useContext(AppContext);
@@ -28,13 +29,24 @@ let SurveyListNotEmptyComponent = () => {
     <div className='flex flex-col flex-auto'>
       <div className='flex justify-between items-center h-28 mx-8 border-b'>
         <p className='text-xl font-semibold'>Employee Surveys</p>
-        <button 
+        {/* <CreateSurvey /> */}
+        {
+          localStorage.getItem("role") === "HR" ?
+          <button 
             className='flex items-center justify-center gap-3 bg-button-blue text-white w-56 h-10 border-0 rounded-lg'
             onClick={() => setSurveyMode('create')}
           >
           Create New Survey
           <Image src='/plus-icon.svg' width={10} height={10} />
-        </button>
+        </button> : null
+        }
+        {/* <button 
+            className='flex items-center justify-center gap-3 bg-button-blue text-white w-56 h-10 border-0 rounded-lg'
+            onClick={() => setSurveyMode('create')}
+          >
+          Create New Survey
+          <Image src='/plus-icon.svg' width={10} height={10} />
+        </button> */}
       </div>
       <div className='flex flex-col mx-8 h-full'>
         <div className='text-lg font-medium mt-8'>Current Survey</div>
